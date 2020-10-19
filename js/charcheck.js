@@ -84,7 +84,8 @@ var matchText = function(node, regex, callback, excludeElements) {
                 .replace(/[０-９]+/g, '__DIGIT{__$&__}__')
                 .replace(/[Ａ-Ｚａ-ｚ]+/g, '__ALPHA{__$&__}__')
                 .replace(/[〈〉《》「」『』【】〔〕（）［］｛｝]+/g, '__BRACKETS{__$&__}__')
-                .replace(/[、。！？・：；]+/g, '__PUNC{__$&__}__');
+                .replace(/[、。！？・：；]+/g, '__PUNC{__$&__}__')
+                .replace(/[，]+/g, '__FW_CHAR{__$&__}__'); // fullwidth comma
     });
     matchText(this, new RegExp(/__SPACE__/, 'g'), function(node, match, offset) {
       const obj = $('<span>').addClass('__c __space').text(' ');
@@ -112,6 +113,11 @@ var matchText = function(node, regex, callback, excludeElements) {
     matchText(this, new RegExp(/__PUNC{__[^_]+__}__/, 'g'), function(node, match, offset) {
       const str = match.replace(/__PUNC{__([^_]+)__}__/, '$1');
       const obj = $('<span>').addClass('__c __punc').text(str);
+      return obj.get(0);
+    });
+    matchText(this, new RegExp(/__FW_CHAR{__[^_]+__}__/, 'g'), function(node, match, offset) {
+      const str = match.replace(/__FW_CHAR{__([^_]+)__}__/, '$1');
+      const obj = $('<span>').addClass('__c __fw-char').text(str);
       return obj.get(0);
     });
   });
