@@ -51,8 +51,8 @@ var matchText = function(node, regex, callback, excludeElements) {
     }
     return document.querySelector('script[src$="/js/charcheck.js"]');
   })();
-  let css_url = 'https://cdn.jsdelivr.net/gh/kazhashimoto/charcheck/css/charcheck.css';   // fall back
-  if (script.src && script.src.match(/\/js\/charcheck.js$/)) {
+  let css_url = 'https://cdn.jsdelivr.net/gh/kazhashimoto/charcheck@1.0.2/css/charcheck.css';   // fall back
+  if (script && script.src && script.src.match(/\/js\/charcheck.js$/)) {
     css_url = script.src.replace(/\/js\/charcheck.js$/, '/css/charcheck.css');
   }
   $('<link>').attr({
