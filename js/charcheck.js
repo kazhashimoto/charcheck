@@ -63,7 +63,8 @@ var matchText = function(node, regex, callback, excludeElements) {
 
   $('body').addClass('charcheck charcheck-done');
 
-  $('body *').each(function() {
+  $('body :not(script):not(link):not(iframe):not(pre)').each(function() {
+    console.dir(this);
     const text = $(this).contents().filter(function() {
       if (this.nodeType === Node.TEXT_NODE) {
         if (this.wholeText.match(/^[\n\r\t ]+$/)) {
