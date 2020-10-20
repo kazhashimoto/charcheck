@@ -64,7 +64,6 @@ var matchText = function(node, regex, callback, excludeElements) {
   $('body').addClass('charcheck charcheck-done');
 
   $('body :not(script):not(link):not(iframe):not(pre)').each(function() {
-    console.dir(this);
     const text = $(this).contents().filter(function() {
       if (this.nodeType === Node.TEXT_NODE) {
         if (this.wholeText.match(/^[\n\r\t ]+$/)) {
@@ -79,8 +78,8 @@ var matchText = function(node, regex, callback, excludeElements) {
                 .replace(/[\n\r\t ]+([\w!-/:-@[-`{-~])/g, '__SPACE__$1')
                 .replace(/([\w!-/:-@[-`{-~])[\n\r\t ]+/g, '$1__SPACE__')
                 .replace(/([\u0080-\uEFFFF])[ \t]+([\u0080-\uEFFFF])/g, '$1__SPACE__$2')
-                .replace(/\u3000/g, '__FW_SPACE__')
-                .replace(/([\u0080-\uEFFFF])\s+([\u0080-\uEFFFF])/g, '$1$2')
+                .replace(/\u3000+/g, '__FW_SPACE{__$&__}__')
+                // .replace(/([\u0080-\uEFFFF])\s+([\u0080-\uEFFFF])/g, '$1$2')
                 .replace(/ /g, '__SPACE__')
                 .replace(/[０-９]+/g, '__DIGIT{__$&__}__')
                 .replace(/[Ａ-Ｚａ-ｚ]+/g, '__ALPHA{__$&__}__')
@@ -92,8 +91,9 @@ var matchText = function(node, regex, callback, excludeElements) {
       const obj = $('<span>').addClass('__c __space').text(' ');
       return obj.get(0);
     });
-    matchText(this, new RegExp(/__FW_SPACE__/, 'g'), function(node, match, offset) {
-      const obj = $('<span>').addClass('__c __fw-space').text('　');
+    matchText(this, new RegExp(/__FW_SPACE{__[^_]+__}__/, 'g'), function(node, match, offset) {
+      const str = match.replace(/__FW_SPACE{__([^_]+)__}__/, '$1');
+      const obj = $('<span>').addClass('__c __fw-space').text(str);
       return obj.get(0);
     });
     matchText(this, new RegExp(/__DIGIT{__[^_]+__}__/, 'g'), function(node, match, offset) {
