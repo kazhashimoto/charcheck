@@ -66,10 +66,7 @@ var matchText = function(node, regex, callback, excludeElements) {
   $('body :not(script):not(link):not(iframe):not(pre)').each(function() {
     const text = $(this).contents().filter(function() {
       if (this.nodeType === Node.TEXT_NODE) {
-        if (this.wholeText.match(/^[\n\r\t ]+$/)) {
-          return false;
-        }
-        return true;
+        return /[^\t\n\r ]/.test(this.data);
       }
       return false;
     });
