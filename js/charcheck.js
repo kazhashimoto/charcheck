@@ -63,6 +63,15 @@ var matchText = function(node, regex, callback, excludeElements) {
 
   $('body').addClass('charcheck charcheck-done');
 
+  const map = new Map();
+  map.set('__space', /__SPACE{__([^_]+)__}__/);
+  map.set('__fw-space', /__FW_SPACE{__([^_]+)__}__/);
+  map.set('__digit', /__DIGIT{__([^_]+)__}__/);
+  map.set('__alpha', /__ALPHA{__([^_]+)__}__/);
+  map.set('__brackets', /__BRACKETS{__([^_]+)__}__/);
+  map.set('__punc', /__PUNC{__([^_]+)__}__/);
+  map.set('__fw-char', /__FW_CHAR{__([^_]+)__}__/);
+
   $('body :not(script):not(link):not(iframe)').each(function() {
     const text = $(this).contents().filter(function() {
       if (this.nodeType === Node.TEXT_NODE) {
@@ -80,40 +89,13 @@ var matchText = function(node, regex, callback, excludeElements) {
                 .replace(/[、。！？・：；]+/g, '__PUNC{__$&__}__')
                 .replace(/[，]+/g, '__FW_CHAR{__$&__}__'); // fullwidth comma
     });
-    matchText(this, new RegExp(/__SPACE{__[^_]+__}__/, 'g'), function(node, match, offset) {
-      const str = match.replace(/__SPACE{__([^_]+)__}__/, '$1');
-      const obj = $('<span>').addClass('__c __space').text(str);
-      return obj.get(0);
-    });
-    matchText(this, new RegExp(/__FW_SPACE{__[^_]+__}__/, 'g'), function(node, match, offset) {
-      const str = match.replace(/__FW_SPACE{__([^_]+)__}__/, '$1');
-      const obj = $('<span>').addClass('__c __fw-space').text(str);
-      return obj.get(0);
-    });
-    matchText(this, new RegExp(/__DIGIT{__[^_]+__}__/, 'g'), function(node, match, offset) {
-      const str = match.replace(/__DIGIT{__([^_]+)__}__/, '$1');
-      const obj = $('<span>').addClass('__c __digit').text(str);
-      return obj.get(0);
-    });
-    matchText(this, new RegExp(/__ALPHA{__[^_]+__}__/, 'g'), function(node, match, offset) {
-      const str = match.replace(/__ALPHA{__([^_]+)__}__/, '$1');
-      const obj = $('<span>').addClass('__c __alpha').text(str);
-      return obj.get(0);
-    });
-    matchText(this, new RegExp(/__BRACKETS{__[^_]+__}__/, 'g'), function(node, match, offset) {
-      const str = match.replace(/__BRACKETS{__([^_]+)__}__/, '$1');
-      const obj = $('<span>').addClass('__c __brackets').text(str);
-      return obj.get(0);
-    });
-    matchText(this, new RegExp(/__PUNC{__[^_]+__}__/, 'g'), function(node, match, offset) {
-      const str = match.replace(/__PUNC{__([^_]+)__}__/, '$1');
-      const obj = $('<span>').addClass('__c __punc').text(str);
-      return obj.get(0);
-    });
-    matchText(this, new RegExp(/__FW_CHAR{__[^_]+__}__/, 'g'), function(node, match, offset) {
-      const str = match.replace(/__FW_CHAR{__([^_]+)__}__/, '$1');
-      const obj = $('<span>').addClass('__c __fw-char').text(str);
-      return obj.get(0);
-    });
+
+    map.forEach(function(re, clsname) {
+      matchText(this, new RegExp(re, 'g'), function(node, match, offset) {
+        const str = match.replace(re, '$1');
+        const obj = $('<span>').addClass('__c ' + clsname).text(str);
+        return obj.get(0);
+      });
+    }, this);
   });
 })();
