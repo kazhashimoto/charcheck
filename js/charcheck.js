@@ -63,7 +63,7 @@ var matchText = function(node, regex, callback, excludeElements) {
 
   $('body').addClass('charcheck charcheck-done');
 
-  $('body :not(script):not(link):not(iframe):not(pre)').each(function() {
+  $('body :not(script):not(link):not(iframe)').each(function() {
     const text = $(this).contents().filter(function() {
       if (this.nodeType === Node.TEXT_NODE) {
         return /[^\t\n\r ]/.test(this.data);
@@ -72,8 +72,8 @@ var matchText = function(node, regex, callback, excludeElements) {
     });
     text.each(function() {
       this.nodeValue = this.nodeValue
-                .replace(/\u3000+/g, '__FW_SPACE{__$&__}__')
                 .replace(/([\t\n\r ]+)([^\t\n\r ])/g, '__SPACE{__$1__}__$2')
+                .replace(/\u3000+/g, '__FW_SPACE{__$&__}__')
                 .replace(/[０-９]+/g, '__DIGIT{__$&__}__')
                 .replace(/[Ａ-Ｚａ-ｚ]+/g, '__ALPHA{__$&__}__')
                 .replace(/[〈〉《》「」『』【】〔〕（）［］｛｝]+/g, '__BRACKETS{__$&__}__')
