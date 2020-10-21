@@ -72,20 +72,17 @@ var matchText = function(node, regex, callback, excludeElements) {
     });
     text.each(function() {
       this.nodeValue = this.nodeValue
-                .replace(/[\n\r\t ]+([\w!-/:-@[-`{-~])/g, '__SPACE__$1')
-                .replace(/([\w!-/:-@[-`{-~])[\n\r\t ]+/g, '$1__SPACE__')
-                .replace(/([\u0080-\uEFFFF])[ \t]+([\u0080-\uEFFFF])/g, '$1__SPACE__$2')
                 .replace(/\u3000+/g, '__FW_SPACE{__$&__}__')
-                // .replace(/([\u0080-\uEFFFF])\s+([\u0080-\uEFFFF])/g, '$1$2')
-                .replace(/ /g, '__SPACE__')
+                .replace(/([\t\n\r ]+)([^\t\n\r ])/g, '__SPACE{__$1__}__$2')
                 .replace(/[０-９]+/g, '__DIGIT{__$&__}__')
                 .replace(/[Ａ-Ｚａ-ｚ]+/g, '__ALPHA{__$&__}__')
                 .replace(/[〈〉《》「」『』【】〔〕（）［］｛｝]+/g, '__BRACKETS{__$&__}__')
                 .replace(/[、。！？・：；]+/g, '__PUNC{__$&__}__')
                 .replace(/[，]+/g, '__FW_CHAR{__$&__}__'); // fullwidth comma
     });
-    matchText(this, new RegExp(/__SPACE__/, 'g'), function(node, match, offset) {
-      const obj = $('<span>').addClass('__c __space').text(' ');
+    matchText(this, new RegExp(/__SPACE{__[^_]+__}__/, 'g'), function(node, match, offset) {
+      const str = match.replace(/__SPACE{__([^_]+)__}__/, '$1');
+      const obj = $('<span>').addClass('__c __space').text(str);
       return obj.get(0);
     });
     matchText(this, new RegExp(/__FW_SPACE{__[^_]+__}__/, 'g'), function(node, match, offset) {
