@@ -87,7 +87,7 @@ var matchText = function(node, regex, callback, excludeElements) {
                 .replace(/[Ａ-Ｚａ-ｚ]+/g, '__ALPHA{__$&__}__')
                 .replace(/[〈〉《》「」『』【】〔〕（）［］｛｝]+/g, '__BRACKETS{__$&__}__')
                 .replace(/[、。！？・：；]+/g, '__PUNC{__$&__}__')
-                .replace(/[，]+/g, '__FW_CHAR{__$&__}__'); // fullwidth comma
+                .replace(/[\uFF0C\uFFE5]+/g, '__FW_CHAR{__$&__}__'); // FULLWIDTH COMMA, FULLWIDTH YEN SIGN
     });
 
     map.forEach(function(re, clsname) {
