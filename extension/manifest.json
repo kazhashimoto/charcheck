@@ -7,7 +7,7 @@
    "default_title": "Click to check characters"
   },
   "permissions": [
-    "activeTab", "declarativeContent", "scripting"
+    "activeTab", "scripting"
   ],
   "background": {
     "service_worker": "background.js"
