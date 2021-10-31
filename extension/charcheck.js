@@ -1,8 +1,10 @@
 (function() {
   if (document.body.classList.contains('charcheck')) {
     const el = document.querySelectorAll('script[src*="charcheck.js"]');
-    const last = el[el.length - 1];
-    last.remove();
+    if (el.length) {
+      const last = el[el.length - 1];
+      last.remove();
+    }
     document.body.classList.toggle('charcheck-done');
     return;
   }
