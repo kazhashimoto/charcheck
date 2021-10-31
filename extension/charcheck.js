@@ -9,17 +9,19 @@
     return;
   }
 
-  const colorMap = new Map();
-  colorMap.set('.__space', 'red')
-    .set('.__fw-space', 'blue')
-    .set('.__digit', 'lime')
-    .set('.__alpha', 'yellow')
-    .set('.__brackets', 'magenta')
-    .set('.__punc', 'mediumpurple')
-    .set('.__fw-char', 'mediumspringgreen')
-    .set('body:not(.charcheck-done) .__c ', 'transparent');
+  let from_extension = (typeof chrome !== 'undefined' && chrome.extension);
 
   function createCSSRules() {
+    const colorMap = new Map();
+    colorMap.set('.__space', 'red')
+      .set('.__fw-space', 'blue')
+      .set('.__digit', 'lime')
+      .set('.__alpha', 'yellow')
+      .set('.__brackets', 'magenta')
+      .set('.__punc', 'mediumpurple')
+      .set('.__fw-char', 'mediumspringgreen')
+      .set('body:not(.charcheck-done) .__c ', 'transparent');
+
     const s = document.createElement('style');
     let str = '';
     for (let [sel, val] of colorMap.entries()) {
@@ -32,7 +34,9 @@
     document.body.appendChild(s);
   }
 
-  createCSSRules();
+  if (!from_extension) {
+    createCSSRules();
+  }
 
   document.body.classList.add('charcheck', 'charcheck-done');
 
