@@ -1,0 +1,23 @@
+@charset "UTF-8";
+/* CSS Document */
+
+.__space { background-color: red; }
+.__fw-space { background-color: blue; }
+.__digit { background-color: lime; }
+.__alpha { background-color: yellow; }
+.__brackets { background-color: magenta;}
+.__punc { background-color: mediumpurple; }
+.__fw-char { background-color: mediumspringgreen;}
+
+
+body:not(.charcheck-done) .__c {
+  background-color: transparent;
+}
+
+.__c.__c.__c.__c {
+  display: inline;
+}
+.__c.__c.__c.__c::before,
+.__c.__c.__c.__c::after {
+  display: none;
+}
