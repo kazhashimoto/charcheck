@@ -1,15 +1,16 @@
 (function() {
+  const from_extension = (typeof chrome !== 'undefined' && chrome.extension);
   if (document.body.classList.contains('charcheck')) {
-    const el = document.querySelectorAll('script[src*="charcheck.js"]');
-    if (el.length) {
-      const last = el[el.length - 1];
-      last.remove();
+    if (!from_extension) {
+      const el = document.querySelectorAll('script[src*="charcheck.js"]');
+      if (el.length) {
+        const last = el[el.length - 1];
+        last.remove();
+      }
     }
     document.body.classList.toggle('charcheck-done');
     return;
   }
-
-  let from_extension = (typeof chrome !== 'undefined' && chrome.extension);
 
   function createCSSRules() {
     const colorMap = new Map();
