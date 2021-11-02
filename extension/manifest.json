@@ -7,9 +7,10 @@
    "default_title": "Click to check characters"
   },
   "permissions": [
-    "activeTab", "scripting"
+    "activeTab", "scripting", "storage"
   ],
   "background": {
     "service_worker": "background.js"
-  }
+  },
+  "options_page": "options.html"
 }
