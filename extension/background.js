@@ -7,18 +7,11 @@ chrome.action.onClicked.addListener((tab) => {
     target: { tabId: tab.id },
     files: ['charcheck.js']
   });
-  chrome.action.onClicked.addListener(
-    () => {
-      toggleBadgeText();
-   }
-  );
   toggleBadgeText();
 
-  function toggleBadgeText() {
-    chrome.action.getBadgeText({tabId: tab.id})
-      .then(result => {
-        const state = (result == 'ON')? 'OFF': 'ON';
-        chrome.action.setBadgeText({text: state});
-      });
+  async function toggleBadgeText() {
+    const badge = await chrome.action.getBadgeText({tabId: tab.id});
+    const state = (badge === 'ON')? 'OFF': 'ON';
+    chrome.action.setBadgeText({text: state, tabId: tab.id});
   }
 });
