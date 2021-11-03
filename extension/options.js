@@ -18,7 +18,7 @@ function save_options() {
 
 function restore_options() {
   chrome.storage.sync.get('items', function(result) {
-    console.log('options currentry is: ', result);
+    console.log('options currently is: ', result);
     if ('items' in result) {
       const items = result.items;
       const item_list = document.querySelectorAll('.item');
