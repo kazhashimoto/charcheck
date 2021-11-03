@@ -1,4 +1,6 @@
 (function() {
+  let options = {};
+
   const from_extension = (typeof chrome !== 'undefined' && chrome.extension);
   if (document.body.classList.contains('charcheck')) {
     if (!from_extension) {
@@ -12,32 +14,71 @@
     return;
   }
 
+  if (from_extension) {
+    // chrome.storage.sync.get('options', function(result) {
+    //   if ('options' in result) {
+    //     console.log('get', result.options);
+    //     options = Object.assign({}, result.options);
+    //   }
+    // });
+    loadOptions();
+    console.log('load: ', options);
+  }
+
+  async function loadOptions() {
+    const result = await chrome.storage.sync.get('options');
+    if ('options' in result) {
+      console.log('get', result.options);
+      options = Object.assign({}, result.options);
+    }
+  }
+
+  if (!Object.keys(options).length) {
+    const colors = ['red', 'blue', 'lime', 'yellow', 'magenta',
+      'mediumpurple', 'mediumspringgreen'];
+    // initialize options
+    options.items = {};
+    options.colors = {};
+    for (let i = 1; i <= 7; i++) {
+      options.items[`item${i}`] = true;
+      options.colors[`color${i}`] = colors[i - 1];
+    }
+    options.preset = true;
+  }
+  console.log('final: ', options);
+
   function createCSSRules() {
+    if (from_extension && options.preset) {
+      return;
+    }
+    const colors = options.colors;
     const colorMap = new Map();
-    colorMap.set('.__space', 'red')
-      .set('.__fw-space', 'blue')
-      .set('.__digit', 'lime')
-      .set('.__alpha', 'yellow')
-      .set('.__brackets', 'magenta')
-      .set('.__punc', 'mediumpurple')
-      .set('.__fw-char', 'mediumspringgreen')
-      .set('body:not(.charcheck-done) .__c ', 'transparent');
+    colorMap.set('.__space', colors.color1/* 'red'*/)
+      .set('.__fw-space', colors.color2/*'blue'*/)
+      .set('.__digit', colors.color3/*'lime'*/)
+      .set('.__alpha', colors.color4/*'yellow'*/)
+      .set('.__brackets', colors.color5/*'magenta'*/)
+      .set('.__punc', colors.color6/*'mediumpurple'*/)
+      .set('.__fw-char', colors.color7/*'mediumspringgreen'*/);
+    if (!from_extension) {
+      colorMap.set('body:not(.charcheck-done) .__c ', 'transparent');
+    }
 
     const s = document.createElement('style');
     let str = '';
     for (let [sel, val] of colorMap.entries()) {
       str += `${sel} { background-color: ${val}; } `;
     }
-    const cccc = '.__c.__c.__c.__c';
-    str += `${cccc} { display: inline; } `;
-    str += `${cccc}::before, ${cccc}::after { display: none; } `;
-    s.textContent = str;
+    if (!from_extension) {
+      const cccc = '.__c.__c.__c.__c';
+      str += `${cccc} { display: inline; } `;
+      str += `${cccc}::before, ${cccc}::after { display: none; } `;
+      s.textContent = str;
+    }
     document.body.appendChild(s);
   }
 
-  if (!from_extension) {
-    createCSSRules();
-  }
+  createCSSRules();
 
   document.body.classList.add('charcheck', 'charcheck-done');
 
@@ -50,8 +91,9 @@
     .set('__punc', /__PUNC{__([^_]+)__}__/)
     .set('__fw-char', /__FW_CHAR{__([^_]+)__}__/);
 
-  const elements = document.body.querySelectorAll(':not(style):not(script):not(link):not(iframe)');
-  elements.forEach(function(element) {
+   document.body
+   .querySelectorAll(':not(style):not(script):not(link):not(iframe)')
+   .forEach(function(element) {
     const text_nodes = Array.from(element.childNodes).filter(function(e) {
       if (e.nodeType === Node.TEXT_NODE) {
         return /[^\t\n\r ]/.test(this.data);
