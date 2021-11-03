@@ -1,23 +1,34 @@
 function save_options() {
+  let obj = {};
   const item_list = document.querySelectorAll('.item');
   item_list.forEach(e => {
     console.log(e);
-    let obj = {};
     obj[e.id] = e.checked;
-    chrome.storage.sync.set(obj, function() {
-      console.log(e.id + ' is set to ' + e.checked);
-    });
+    console.log(e.id + ' is set to ' + e.checked);
+  });
+  chrome.storage.sync.set({items: obj}, function() {
+    // Update status to let user know options were saved.
+    const status = document.getElementById('status');
+    status.textContent = 'Options saved.';
+    setTimeout(function() {
+      status.textContent = '';
+    }, 750);
   });
 }
 
 function restore_options() {
-  const item_list = document.querySelectorAll('.item');
-  item_list.forEach(e => {
-    console.log(e);
-    chrome.storage.sync.get([e.id], function(result) {
-      console.log(e.id + ' currentry is ' + result[e.id])
-      document.getElementById(e.id).checked = result[e.id];
-    });
+  chrome.storage.sync.get('items', function(result) {
+    console.log('options currentry is: ', result);
+    if ('items' in result) {
+      const items = result.items;
+      const item_list = document.querySelectorAll('.item');
+      item_list.forEach(e => {
+        console.log(e.id + ' currentry is ' + items[e.id]);
+        if (result[e.id]) {
+          document.getElementById(e.id).checked = items[e.id];
+        }
+      });
+    }
   });
 }
 
