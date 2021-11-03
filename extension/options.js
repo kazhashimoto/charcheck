@@ -1,12 +1,9 @@
 function save_options() {
   let obj = {};
-  const item_list = document.querySelectorAll('.item');
-  item_list.forEach(e => {
-    console.log(e);
+  document.querySelectorAll('.item').forEach(e => {
     obj[e.id] = e.checked;
-    console.log(e.id + ' is set to ' + e.checked);
   });
-  chrome.storage.sync.set({items: obj}, function() {
+  chrome.storage.sync.set({options: obj}, function() {
     // Update status to let user know options were saved.
     const status = document.getElementById('status');
     status.textContent = 'Options saved.';
@@ -17,24 +14,19 @@ function save_options() {
 }
 
 function restore_options() {
-  chrome.storage.sync.get('items', function(result) {
-    console.log('options currently is: ', result);
-    if ('items' in result) {
-      const items = result.items;
-      const item_list = document.querySelectorAll('.item');
-      item_list.forEach(e => {
-        console.log(e.id + ' currentry is ' + items[e.id]);
-        document.getElementById(e.id).checked = items[e.id];
+  chrome.storage.sync.get('options', function(result) {
+    if ('options' in result) {
+      const options = result.options;
+      document.querySelectorAll('.item').forEach(e => {
+        document.getElementById(e.id).checked = options[e.id];
       });
     }
   });
 }
 
 function reset_options() {
-  const item_list = document.querySelectorAll('.item');
-  item_list.forEach(e => {
+  document.querySelectorAll('.item').forEach(e => {
     e.checked = e.hasAttribute('checked');
-    console.log('checked --> ', e.checked);
   });
 }
 
