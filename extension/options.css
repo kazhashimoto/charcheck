@@ -27,3 +27,10 @@ body {
 .head {
   background-color: #eee;
 }
+
+.message {
+  height: 1.5em;
+}
+.buttons {
+  padding: 10px 0;
+}

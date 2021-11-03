@@ -24,13 +24,20 @@ function restore_options() {
       const item_list = document.querySelectorAll('.item');
       item_list.forEach(e => {
         console.log(e.id + ' currentry is ' + items[e.id]);
-        if (result[e.id]) {
-          document.getElementById(e.id).checked = items[e.id];
-        }
+        document.getElementById(e.id).checked = items[e.id];
       });
     }
   });
 }
 
+function reset_options() {
+  const item_list = document.querySelectorAll('.item');
+  item_list.forEach(e => {
+    e.checked = e.hasAttribute('checked');
+    console.log('checked --> ', e.checked);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', restore_options);
 document.getElementById('save').addEventListener('click', save_options);
+document.getElementById('reset').addEventListener('click', reset_options);
