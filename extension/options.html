@@ -1,24 +1,107 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <title>Charset Options</title>
+  <title>Charcheck Options</title>
+  <link rel="stylesheet" href="options.css">
 </head>
 <body>
-  <label for="item1">
-    <input type="checkbox" id="item1" class="item">
-    Item1
-  </label>
-  <label for="item2">
-    <input type="checkbox" id="item2" class="item">
-    Item2
-  </label>
-  <label for="item3">
-    <input type="checkbox" id="item3" class="item">
-    Item3
-  </label>
+  <div class="container">
+    <h2>Options:</h2>
+    <div class="table">
+      <div class="row head">
+        <div class="cell">検索対象</div>
+        <div class="cell">背景色</div>
+        <div class="cell">正規表現</div>
+      </div>
+      <div class="row">
+        <div class="cell">
+          <input type="checkbox" id="item1" class="item" checked>
+          <label for="item1">半角スペース</label>
+        </div>
+        <div class="cell">
+          <input type="color" id="color1" class="color" value="#ff0000">
+        </div>
+        <div class="cell">
+          <p class="regexp">/([\t\n\r ]+)([^\t\n\r ])/g</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell">
+          <input type="checkbox" id="item2" class="item" checked>
+          <label for="item2">全角スペース</label>
+        </div>
+        <div class="cell">
+          <input type="color" id="color2" class="color" value="#0000ff">
+        </div>
+        <div class="cell">
+          <p class="regexp">/\u3000+/g</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell">
+          <input type="checkbox" id="item3" class="item" checked>
+          <label for="item3">全角数字</label>
+        </div>
+        <div class="cell">
+          <input type="color" id="color3" class="color" value="#00ff00">
+        </div>
+        <div class="cell">
+          <p class="regexp">/[０-９]+/g</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell">
+          <input type="checkbox" id="item4" class="item" checked>
+          <label for="item4">全角英字</label>
+        </div>
+        <div class="cell">
+          <input type="color" id="color4" class="color" value="#ffff00">
+        </div>
+        <div class="cell">
+          <p class="regexp">/[Ａ-Ｚａ-ｚ]+/g</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell">
+          <input type="checkbox" id="item5" class="item" checked>
+          <label for="item5">約物括弧（全角）</label>
+        </div>
+        <div class="cell">
+          <input type="color" id="color5" class="color" value="#ff00ff">
+        </div>
+        <div class="cell">
+          <p class="regexp">/[〈〉《》「」『』【】〔〕（）［］｛｝]+/g</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell">
+          <input type="checkbox" id="item6" class="item" checked>
+          <label for="item6">句読点（全角）</label>
+        </div>
+        <div class="cell">
+          <input type="color" id="color6" class="color" value="#9370db">
+        </div>
+        <div class="cell">
+          <p class="regexp">/[、。！？・：；]+/g</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="cell">
+          <input type="checkbox" id="item7" class="item" checked>
+          <label for="item7">FULLWIDTH COMMA, FULLWIDTH YEN SIGN</label>
+        </div>
+        <div class="cell">
+          <input type="color" id="color7" class="color" value="#00fa9a">
+        </div>
+        <div class="cell">
+          <p class="regexp">/[\uFF0C\uFFE5]+/g</p>
+        </div>
+      </div>
+    </div>
 
-  <div id="status"></div>
-  <button id="save">Save</button>
+    <div id="status"></div>
+    <button id="save">Save</button>
+  </div>
 
   <script src="options.js"></script>
 </body>

@@ -1,0 +1,29 @@
+
+p {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: sans-serif;
+}
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 40px;
+}
+.row {
+  display: table-row
+}
+.cell {
+  display: table-cell;
+  border: 1px solid #d0d0d0;
+  padding: 6px 8px;
+}
+.head {
+  background-color: #eee;
+}
