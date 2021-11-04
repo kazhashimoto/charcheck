@@ -1,13 +1,13 @@
 @charset "UTF-8";
 /* CSS Document */
 
-.__space { background-color: red; }
-.__fw-space { background-color: blue; }
-.__digit { background-color: lime; }
-.__alpha { background-color: yellow; }
-.__brackets { background-color: magenta;}
-.__punc { background-color: mediumpurple; }
-.__fw-char { background-color: mediumspringgreen;}
+.__space { background-color: tomato; }
+.__fw-space { background-color: #fff100; }
+.__digit { background-color: violet; }
+.__alpha { background-color: dodgerblue; }
+.__brackets { background-color: mediumseagreen;}
+.__punc { background-color: slateblue; }
+.__fw-char { background-color: orange;}
 
 
 body:not(.charcheck-done) .__c {

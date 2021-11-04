@@ -29,8 +29,8 @@
   }
 
   function init_options() {
-    const colors = ['red', 'blue', 'lime', 'yellow', 'magenta',
-      'mediumpurple', 'mediumspringgreen'];
+    const colors = ['tomato', '#fff100', 'violet', 'dodgerblue',
+      'mediumseagreen', 'slateblue', 'orange'];
     // initialize options
     options.items = {};
     options.colors = {};
