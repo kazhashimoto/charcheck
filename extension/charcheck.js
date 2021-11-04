@@ -14,52 +14,47 @@
     return;
   }
 
+  init_options();
   if (from_extension) {
-    // chrome.storage.sync.get('options', function(result) {
-    //   if ('options' in result) {
-    //     console.log('get', result.options);
-    //     options = Object.assign({}, result.options);
-    //   }
-    // });
-    loadOptions();
-    console.log('load: ', options);
+    chrome.storage.sync.get('options', function(result) {
+      if ('options' in result) {
+        console.log('get', result.options);
+        options = Object.assign({}, result.options);
+        options.preset = false;
+      }
+      createCSSRules();
+    });
+  } else {
+    createCSSRules();
   }
 
-  async function loadOptions() {
-    const result = await chrome.storage.sync.get('options');
-    if ('options' in result) {
-      console.log('get', result.options);
-      options = Object.assign({}, result.options);
-    }
-  }
-
-  if (!Object.keys(options).length) {
+  function init_options() {
     const colors = ['red', 'blue', 'lime', 'yellow', 'magenta',
       'mediumpurple', 'mediumspringgreen'];
     // initialize options
     options.items = {};
     options.colors = {};
-    for (let i = 1; i <= 7; i++) {
+    for (let i = 1; i <= colors.length; i++) {
       options.items[`item${i}`] = true;
       options.colors[`color${i}`] = colors[i - 1];
     }
     options.preset = true;
   }
-  console.log('final: ', options);
 
   function createCSSRules() {
     if (from_extension && options.preset) {
       return;
     }
+    console.log('modify css rules');
     const colors = options.colors;
     const colorMap = new Map();
-    colorMap.set('.__space', colors.color1/* 'red'*/)
-      .set('.__fw-space', colors.color2/*'blue'*/)
-      .set('.__digit', colors.color3/*'lime'*/)
-      .set('.__alpha', colors.color4/*'yellow'*/)
-      .set('.__brackets', colors.color5/*'magenta'*/)
-      .set('.__punc', colors.color6/*'mediumpurple'*/)
-      .set('.__fw-char', colors.color7/*'mediumspringgreen'*/);
+    colorMap.set('.__space', colors.color1)
+      .set('.__fw-space', colors.color2)
+      .set('.__digit', colors.color3)
+      .set('.__alpha', colors.color4)
+      .set('.__brackets', colors.color5)
+      .set('.__punc', colors.color6)
+      .set('.__fw-char', colors.color7);
     if (!from_extension) {
       colorMap.set('body:not(.charcheck-done) .__c ', 'transparent');
     }
@@ -73,12 +68,10 @@
       const cccc = '.__c.__c.__c.__c';
       str += `${cccc} { display: inline; } `;
       str += `${cccc}::before, ${cccc}::after { display: none; } `;
-      s.textContent = str;
     }
+    s.textContent = str;
     document.body.appendChild(s);
   }
-
-  createCSSRules();
 
   document.body.classList.add('charcheck', 'charcheck-done');
 
