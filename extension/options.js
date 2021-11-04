@@ -35,17 +35,14 @@ function restore_options() {
   });
 }
 
-function reset_options() {
+function select_all() {
+  let state = this.checked;
   document.querySelectorAll('.item').forEach(e => {
-    e.checked = e.hasAttribute('checked');
+    e.checked = state;
   });
-  document.querySelectorAll('.color').forEach(e => {
-    if (e.hasAttribute('value')) {
-      e.value = e.getAttribute('value');
-    }
-  })
 }
 
 document.addEventListener('DOMContentLoaded', restore_options);
 document.getElementById('save').addEventListener('click', save_options);
-document.getElementById('reset').addEventListener('click', reset_options);
+
+document.getElementById('select-all').addEventListener('click', select_all);
