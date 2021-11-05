@@ -46,3 +46,39 @@ document.addEventListener('DOMContentLoaded', restore_options);
 document.getElementById('save').addEventListener('click', save_options);
 
 document.getElementById('select-all').addEventListener('click', select_all);
+
+// colors
+function name2hex(name) {
+  const div = document.createElement('div');
+  div.style.color = name;
+  document.body.appendChild(div);
+
+  const cat = (p, c) => p + c;
+  const style = window.getComputedStyle(div);
+  const found = style.color.match(/rgba?\((.+)\)/);
+  const rgba = found[1].split(',')
+    .map((v, i) => {
+      let x = +v.trim();
+      if (i === 3) {
+        x = Math.round(255 * x);
+      }
+      let hex = x.toString(16);
+      if (x < 16) {
+        hex = '0' + hex;
+      }
+      return hex;
+    }).reduce(cat, '#');
+
+  document.body.removeChild(div);
+  return rgba;
+}
+
+const colors = [
+  'tomato', '#fff100', 'violet', 'dodgerblue',
+  'mediumseagreen', 'slateblue', 'orange'
+];
+
+document.querySelectorAll('.color').forEach((e, i) => {
+  console.log(e, i);
+  e.value = name2hex(colors[i]);
+});
