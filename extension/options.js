@@ -20,7 +20,26 @@ function save_options() {
   });
 }
 
+const classes = [
+  '__space', '__fw-space', '__digit', '__alpha', '__brackets',
+  '__punc', '__fw-char'
+];
+
+function preset_color_values() {
+  document.querySelectorAll('.color').forEach((e, i) => {
+    const div = document.createElement('div');
+    div.classList.add(classes[i]);
+    div.style.display = 'none';
+    document.body.appendChild(div);
+
+    const style = window.getComputedStyle(div);
+    e.value = name2hex(style.backgroundColor);
+    document.body.removeChild(div);
+  });
+}
+
 function restore_options() {
+  preset_color_values();
   chrome.storage.sync.get('options', function(result) {
     console.log(result);
     if ('options' in result) {
@@ -72,13 +91,3 @@ function name2hex(name) {
   document.body.removeChild(div);
   return rgba;
 }
-
-const colors = [
-  'tomato', '#fff100', 'violet', 'dodgerblue',
-  'mediumseagreen', 'slateblue', 'orange'
-];
-
-document.querySelectorAll('.color').forEach((e, i) => {
-  console.log(e, i);
-  e.value = name2hex(colors[i]);
-});
