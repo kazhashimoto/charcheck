@@ -66,28 +66,34 @@ document.getElementById('save').addEventListener('click', save_options);
 
 document.getElementById('select-all').addEventListener('click', select_all);
 
+
 // colors
-function name2hex(name) {
-  const div = document.createElement('div');
-  div.style.color = name;
-  document.body.appendChild(div);
-
-  const cat = (p, c) => p + c;
-  const style = window.getComputedStyle(div);
-  const found = style.color.match(/rgba?\((.+)\)/);
-  const rgba = found[1].split(',')
-    .map((v, i) => {
-      let x = +v.trim();
-      if (i === 3) {
-        x = Math.round(255 * x);
+function set_lightness(value) {
+  document.querySelectorAll('.color').forEach(e => {
+    const rgb = getRGB(e.value);
+    console.log(rgb);
+    const hsl = [];
+    rgb2hsl(rgb, hsl);
+    console.log('hsl', hsl);
+    let l = hsl[2];
+    if (value > 0) {
+      if (l > 90) {
+        return;
       }
-      let hex = x.toString(16);
-      if (x < 16) {
-        hex = '0' + hex;
+      l = Math.min(l + 10, 90);
+    } else {
+      if (l < 10) {
+        return;
       }
-      return hex;
-    }).reduce(cat, '#');
-
-  document.body.removeChild(div);
-  return rgba;
+      l = Math.max(l - 10, 10);
+    }
+    hsl[2] = l;
+    const hex = hsl2rgb(hsl);
+    console.log('new:', hex);
+    e.value = hex;
+  });
 }
+document.getElementById('lightness').addEventListener('input', function() {
+  set_lightness(this.value);
+})
+;

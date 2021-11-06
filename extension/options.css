@@ -34,3 +34,7 @@ body {
 .buttons {
   padding: 10px 0;
 }
+
+.toggle {
+  width: 40px;
+}

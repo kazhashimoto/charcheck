@@ -10,6 +10,7 @@
   <div class="container">
     <h2>Options:</h2>
     <input type="checkbox" id="select-all" checked><label for="select-all">全て選択/解除</label>
+
     <div class="table">
       <div class="row head">
         <div class="cell">検索対象</div>
@@ -102,6 +103,11 @@
       </div>
     </div>
 
+    <div class="preferences">
+      <label for="lightness">背景色を明るく</label>
+      <input type="range" id="lightness" min="0" max="1" value="0" class="toggle">
+    </div>
+
     <div id="status" class="message"></div>
     <div class="buttons">
       <button id="save">Save</button>
@@ -109,6 +115,7 @@
 
   </div>
 
+  <script src="colors.js"></script>
   <script src="options.js"></script>
 </body>
 </html>
