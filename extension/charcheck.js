@@ -34,6 +34,7 @@
     // initialize options
     options.items = {};
     options.colors = {};
+    options.useSameColor = false;
     for (let i = 1; i <= colors.length; i++) {
       options.items[`item${i}`] = true;
       options.colors[`color${i}`] = colors[i - 1];
@@ -47,14 +48,18 @@
     }
     console.log('modify css rules');
     const colors = options.colors;
+    options._c = function(p) {
+      return (this.useSameColor)? this.defaultColor: this.colors[p];
+    };
+
     const colorMap = new Map();
-    colorMap.set('.__space', colors.color1)
-      .set('.__fw-space', colors.color2)
-      .set('.__digit', colors.color3)
-      .set('.__alpha', colors.color4)
-      .set('.__brackets', colors.color5)
-      .set('.__punc', colors.color6)
-      .set('.__fw-char', colors.color7);
+    colorMap.set('.__space', options._c('color1'))
+      .set('.__fw-space', options._c('color2'))
+      .set('.__digit', options._c('color3'))
+      .set('.__alpha', options._c('color4'))
+      .set('.__brackets', options._c('color5'))
+      .set('.__punc', options._c('color6'))
+      .set('.__fw-char', options._c('color7'));
     if (!from_extension) {
       colorMap.set('body:not(.charcheck-done) .__c ', 'transparent');
     }
