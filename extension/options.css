@@ -1,5 +1,5 @@
 
-p {
+p, dd {
   margin: 0;
   padding: 0;
 }
@@ -14,7 +14,6 @@ body {
   display: table;
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 40px;
 }
 .row {
   display: table-row
@@ -35,6 +34,20 @@ body {
   padding: 10px 0;
 }
 
-.toggle {
-  width: 40px;
+.preferences {
+  margin-top: 40px;
+}
+.pref-list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 10em 1fr;
+  grid-row-gap: 20px;
+}
+.pref-list dt {
+}
+.pref-list dd {
+}
+
+.plus-minus {
+  	font-family: Lucida Sans Typewriter,Lucida Console,monaco,Bitstream Vera Sans Mono,monospace;
 }

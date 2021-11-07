@@ -66,7 +66,6 @@ document.getElementById('save').addEventListener('click', save_options);
 
 document.getElementById('select-all').addEventListener('click', select_all);
 
-
 // colors
 function set_lightness(value) {
   document.querySelectorAll('.color').forEach(e => {
@@ -93,7 +92,9 @@ function set_lightness(value) {
     e.value = hex;
   });
 }
-document.getElementById('lightness').addEventListener('input', function() {
-  set_lightness(this.value);
-})
-;
+document.getElementById('lightness-down').addEventListener('click', function() {
+  set_lightness(-1);
+});
+document.getElementById('lightness-up').addEventListener('click', function() {
+  set_lightness(1);
+});

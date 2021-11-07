@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="container">
-    <h2>Options:</h2>
+    <h2>検索設定</h2>
     <input type="checkbox" id="select-all" checked><label for="select-all">全て選択/解除</label>
 
     <div class="table">
@@ -104,13 +104,23 @@
     </div>
 
     <div class="preferences">
-      <label for="lightness">背景色を明るく</label>
-      <input type="range" id="lightness" min="0" max="1" value="0" class="toggle">
+      <h2>色の調整</h2>
+      <dl class="pref-list">
+        <dt>背景色:</dt>
+        <dd><label for="lightness-down">暗く</label> <button type="button" id="lightness-down" class="plus-minus">&minus;</button>
+      <button type="button" id="lightness-up" class="plus-minus">&plus;</button> <label for="lightness-up">明るく</label>
+        </dd>
+        <dt>カラーパレット:</dt>
+        <dd>
+          <p><button type="button">初期値に戻す</button></p>
+          <p><input type="checkbox" id="same-color"><label for="same-color">全て同じ色を使用</label>　<input type="color" id="color-default" value="#ff0000"></p>
+        </dd>
+      </dl>
     </div>
 
     <div id="status" class="message"></div>
     <div class="buttons">
-      <button id="save">Save</button>
+      <button type="button" id="save">保存</button>
     </div>
 
   </div>
