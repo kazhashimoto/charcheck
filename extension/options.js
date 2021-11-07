@@ -1,7 +1,9 @@
 function save_options() {
   let obj = {
     items: {},
-    colors: {}
+    colors: {},
+    useSameColor: false,
+    defaultColor: document.getElementById('color-default').getAttribute('value')
   };
   document.querySelectorAll('.item').forEach(e => {
     obj.items[e.id] = e.checked;
@@ -9,6 +11,8 @@ function save_options() {
   document.querySelectorAll('.color').forEach(e => {
     obj.colors[e.id] = e.value;
   });
+  obj.useSameColor = document.getElementById('same-color').checked;
+  obj.defaultColor = document.getElementById('color-default').value;
   console.log('save: ', obj);
   chrome.storage.sync.set({options: obj}, function() {
     // Update status to let user know options were saved.
@@ -50,6 +54,8 @@ function restore_options() {
       document.querySelectorAll('.color').forEach(e => {
         document.getElementById(e.id).value = options.colors[e.id];
       });
+      document.getElementById('same-color').checked = options.useSameColor;
+      document.getElementById('color-default').value = options.defaultColor;
     }
   });
 }
@@ -98,3 +104,5 @@ document.getElementById('lightness-down').addEventListener('click', function() {
 document.getElementById('lightness-up').addEventListener('click', function() {
   set_lightness(1);
 });
+
+document.getElementById('reset-colors').addEventListener('click', preset_color_values);
