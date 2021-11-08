@@ -1,5 +1,6 @@
 (function() {
   let options = {};
+  let has = x => true;
 
   const from_extension = (typeof chrome !== 'undefined' && chrome.extension);
   if (document.body.classList.contains('charcheck')) {
@@ -21,11 +22,14 @@
         console.log('get', result.options);
         options = Object.assign({}, result.options);
         options.preset = false;
+        has = x => options.items[x];
       }
       createCSSRules();
+      process();
     });
   } else {
     createCSSRules();
+    process();
   }
 
   function init_options() {
@@ -89,9 +93,15 @@
     .set('__punc', /__PUNC{__([^_]+)__}__/)
     .set('__fw-char', /__FW_CHAR{__([^_]+)__}__/);
 
-   document.body
-   .querySelectorAll(':not(style):not(script):not(link):not(iframe)')
-   .forEach(function(element) {
+  String.prototype.replace_if = function(cond, re, newstr) {
+    return cond? this.replace(re, newstr): this;
+  }
+
+function process() {
+  console.log(has);
+  document.body
+     .querySelectorAll(':not(style):not(script):not(link):not(iframe)')
+     .forEach(function(element) {
     const text_nodes = Array.from(element.childNodes).filter(function(e) {
       if (e.nodeType === Node.TEXT_NODE) {
         return /[^\t\n\r ]/.test(this.data);
@@ -100,13 +110,20 @@
     });
     text_nodes.forEach(function(e) {
       e.nodeValue = e.nodeValue
-                .replace(/([\t\n\r ]+)([^\t\n\r ])/g, '__SPACE{__$1__}__$2')
-                .replace(/\u3000+/g, '__FW_SPACE{__$&__}__')
-                .replace(/[０-９]+/g, '__DIGIT{__$&__}__')
-                .replace(/[Ａ-Ｚａ-ｚ]+/g, '__ALPHA{__$&__}__')
-                .replace(/[〈〉《》「」『』【】〔〕（）［］｛｝]+/g, '__BRACKETS{__$&__}__')
-                .replace(/[、。！？・：；]+/g, '__PUNC{__$&__}__')
-                .replace(/[\uFF0C\uFFE5]+/g, '__FW_CHAR{__$&__}__'); // FULLWIDTH COMMA, FULLWIDTH YEN SIGN
+          .replace_if(has('item1'), /([\t\n\r ]+)([^\t\n\r ])/g, '__SPACE{__$1__}__$2')
+                // .replace(/([\t\n\r ]+)([^\t\n\r ])/g, '__SPACE{__$1__}__$2')
+          .replace_if(has('item2'), /\u3000+/g, '__FW_SPACE{__$&__}__')
+          // .replace(/\u3000+/g, '__FW_SPACE{__$&__}__')
+          .replace_if(has('item3'), /[０-９]+/g, '__DIGIT{__$&__}__')
+          // .replace(/[０-９]+/g, '__DIGIT{__$&__}__')
+          .replace_if(has('item4'), /[Ａ-Ｚａ-ｚ]+/g, '__ALPHA{__$&__}__')
+          // .replace(/[Ａ-Ｚａ-ｚ]+/g, '__ALPHA{__$&__}__')
+          .replace_if(has('item5'), /[〈〉《》「」『』【】〔〕（）［］｛｝]+/g, '__BRACKETS{__$&__}__')
+          // .replace(/[〈〉《》「」『』【】〔〕（）［］｛｝]+/g, '__BRACKETS{__$&__}__')
+          .replace_if(has('item6'), /[、。！？・：；]+/g, '__PUNC{__$&__}__')
+          // .replace(/[、。！？・：；]+/g, '__PUNC{__$&__}__')
+          .replace_if(has('item7'), /[\uFF0C\uFFE5]+/g, '__FW_CHAR{__$&__}__'); // FULLWIDTH COMMA, FULLWIDTH YEN SIGN
+          // .replace(/[\uFF0C\uFFE5]+/g, '__FW_CHAR{__$&__}__'); // FULLWIDTH COMMA, FULLWIDTH YEN SIGN
     });
 
     map.forEach(function(re, clsname) {
@@ -119,6 +136,7 @@
       });
     });
   });
+}// END of process()
 
   // https://stackoverflow.com/questions/16662393/insert-html-into-text-node-with-javascript
   function matchText(node, regex, callback, excludeElements) {
