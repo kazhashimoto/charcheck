@@ -97,46 +97,38 @@
     return cond? this.replace(re, newstr): this;
   }
 
-function process() {
-  console.log(has);
-  document.body
-     .querySelectorAll(':not(style):not(script):not(link):not(iframe)')
-     .forEach(function(element) {
-    const text_nodes = Array.from(element.childNodes).filter(function(e) {
-      if (e.nodeType === Node.TEXT_NODE) {
-        return /[^\t\n\r ]/.test(this.data);
-      }
-      return false;
-    });
-    text_nodes.forEach(function(e) {
-      e.nodeValue = e.nodeValue
-          .replace_if(has('item1'), /([\t\n\r ]+)([^\t\n\r ])/g, '__SPACE{__$1__}__$2')
-                // .replace(/([\t\n\r ]+)([^\t\n\r ])/g, '__SPACE{__$1__}__$2')
-          .replace_if(has('item2'), /\u3000+/g, '__FW_SPACE{__$&__}__')
-          // .replace(/\u3000+/g, '__FW_SPACE{__$&__}__')
-          .replace_if(has('item3'), /[０-９]+/g, '__DIGIT{__$&__}__')
-          // .replace(/[０-９]+/g, '__DIGIT{__$&__}__')
-          .replace_if(has('item4'), /[Ａ-Ｚａ-ｚ]+/g, '__ALPHA{__$&__}__')
-          // .replace(/[Ａ-Ｚａ-ｚ]+/g, '__ALPHA{__$&__}__')
-          .replace_if(has('item5'), /[〈〉《》「」『』【】〔〕（）［］｛｝]+/g, '__BRACKETS{__$&__}__')
-          // .replace(/[〈〉《》「」『』【】〔〕（）［］｛｝]+/g, '__BRACKETS{__$&__}__')
-          .replace_if(has('item6'), /[、。！？・：；]+/g, '__PUNC{__$&__}__')
-          // .replace(/[、。！？・：；]+/g, '__PUNC{__$&__}__')
-          .replace_if(has('item7'), /[\uFF0C\uFFE5]+/g, '__FW_CHAR{__$&__}__'); // FULLWIDTH COMMA, FULLWIDTH YEN SIGN
-          // .replace(/[\uFF0C\uFFE5]+/g, '__FW_CHAR{__$&__}__'); // FULLWIDTH COMMA, FULLWIDTH YEN SIGN
-    });
+  function process() {
+    document.body
+       .querySelectorAll(':not(style):not(script):not(link):not(iframe)')
+       .forEach(function(element) {
+      const text_nodes = Array.from(element.childNodes).filter(function(e) {
+        if (e.nodeType === Node.TEXT_NODE) {
+          return /[^\t\n\r ]/.test(this.data);
+        }
+        return false;
+      });
+      text_nodes.forEach(function(e) {
+        e.nodeValue = e.nodeValue
+            .replace_if(has('item1'), /([\t\n\r ]+)([^\t\n\r ])/g, '__SPACE{__$1__}__$2')
+            .replace_if(has('item2'), /\u3000+/g, '__FW_SPACE{__$&__}__')
+            .replace_if(has('item3'), /[０-９]+/g, '__DIGIT{__$&__}__')
+            .replace_if(has('item4'), /[Ａ-Ｚａ-ｚ]+/g, '__ALPHA{__$&__}__')
+            .replace_if(has('item5'), /[〈〉《》「」『』【】〔〕（）［］｛｝]+/g, '__BRACKETS{__$&__}__')
+            .replace_if(has('item6'), /[、。！？・：；]+/g, '__PUNC{__$&__}__')
+            .replace_if(has('item7'), /[\uFF0C\uFFE5]+/g, '__FW_CHAR{__$&__}__'); // FULLWIDTH COMMA, FULLWIDTH YEN SIGN
+      });
 
-    map.forEach(function(re, clsname) {
-      matchText(element, new RegExp(re, 'g'), function(node, match, offset) {
-        const str = match.replace(re, '$1');
-        const span = document.createElement('span');
-        span.classList.add('__c', clsname);
-        span.textContent = str;
-        return span;
+      map.forEach(function(re, clsname) {
+        matchText(element, new RegExp(re, 'g'), function(node, match, offset) {
+          const str = match.replace(re, '$1');
+          const span = document.createElement('span');
+          span.classList.add('__c', clsname);
+          span.textContent = str;
+          return span;
+        });
       });
     });
-  });
-}// END of process()
+  }
 
   // https://stackoverflow.com/questions/16662393/insert-html-into-text-node-with-javascript
   function matchText(node, regex, callback, excludeElements) {
