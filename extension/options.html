@@ -8,9 +8,11 @@
 </head>
 <body>
   <div class="container">
-    <h2>検索設定</h2>
-    <input type="checkbox" id="select-all" checked><label for="select-all">全て選択/解除</label>
-
+    <h2 class="hd">検索設定</h2>
+    <p class="text">検索対象の文字の種類を選択するには、左側のチェックボックスにチェックを入れてください。</p>
+    <div class="upper-buttons">
+      <input type="checkbox" id="select-all" checked><label for="select-all">全て選択/解除</label>
+    </div>
     <div class="table">
       <div class="row head">
         <div class="cell">検索対象</div>
@@ -104,7 +106,7 @@
     </div>
 
     <div class="preferences">
-      <h2>色の調整</h2>
+      <h2 class="hd">色の調整</h2>
       <dl class="pref-list">
         <dt>背景色:</dt>
         <dd><label for="lightness-down">暗く</label> <button type="button" id="lightness-down" class="plus-minus">&minus;</button>
@@ -112,7 +114,7 @@
         </dd>
         <dt>カラーパレット:</dt>
         <dd>
-          <p><button type="button" id="reset-colors">初期値に戻す</button></p>
+          <p><button type="button" id="reset-colors" class="op-button">初期値に戻す</button></p>
           <p><input type="checkbox" id="same-color"><label for="same-color">全て同じ色を使用</label>　<input type="color" id="color-default" value="#ff0000"></p>
         </dd>
       </dl>
@@ -120,7 +122,7 @@
 
     <div id="status" class="message"></div>
     <div class="buttons">
-      <button type="button" id="save">保存</button>
+      <button type="button" id="save" class="op-button">保存</button>
     </div>
 
   </div>

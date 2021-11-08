@@ -98,6 +98,7 @@ function set_lightness(value) {
     e.value = hex;
   });
 }
+
 document.getElementById('lightness-down').addEventListener('click', function() {
   set_lightness(-1);
 });
