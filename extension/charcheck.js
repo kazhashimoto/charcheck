@@ -1,6 +1,9 @@
 (function() {
   let options = {};
   let has = x => true;
+  String.prototype.replace_if = function(cond, re, newstr) {
+    return cond? this.replace(re, newstr): this;
+  }
 
   const from_extension = (typeof chrome !== 'undefined' && chrome.extension);
   if (document.body.classList.contains('charcheck')) {
@@ -82,22 +85,18 @@
     document.body.appendChild(s);
   }
 
-  document.body.classList.add('charcheck', 'charcheck-done');
-
-  const map = new Map();
-  map.set('__space', /__SPACE{__([^_]+)__}__/)
-    .set('__fw-space', /__FW_SPACE{__([^_]+)__}__/)
-    .set('__digit', /__DIGIT{__([^_]+)__}__/)
-    .set('__alpha', /__ALPHA{__([^_]+)__}__/)
-    .set('__brackets', /__BRACKETS{__([^_]+)__}__/)
-    .set('__punc', /__PUNC{__([^_]+)__}__/)
-    .set('__fw-char', /__FW_CHAR{__([^_]+)__}__/);
-
-  String.prototype.replace_if = function(cond, re, newstr) {
-    return cond? this.replace(re, newstr): this;
-  }
-
   function process() {
+    document.body.classList.add('charcheck', 'charcheck-done');
+
+    const map = new Map();
+    map.set('__space', /__SPACE{__([^_]+)__}__/)
+      .set('__fw-space', /__FW_SPACE{__([^_]+)__}__/)
+      .set('__digit', /__DIGIT{__([^_]+)__}__/)
+      .set('__alpha', /__ALPHA{__([^_]+)__}__/)
+      .set('__brackets', /__BRACKETS{__([^_]+)__}__/)
+      .set('__punc', /__PUNC{__([^_]+)__}__/)
+      .set('__fw-char', /__FW_CHAR{__([^_]+)__}__/);
+
     document.body
        .querySelectorAll(':not(style):not(script):not(link):not(iframe)')
        .forEach(element => {
