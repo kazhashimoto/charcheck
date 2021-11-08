@@ -100,14 +100,14 @@
   function process() {
     document.body
        .querySelectorAll(':not(style):not(script):not(link):not(iframe)')
-       .forEach(function(element) {
+       .forEach(element => {
       const text_nodes = Array.from(element.childNodes).filter(function(e) {
         if (e.nodeType === Node.TEXT_NODE) {
           return /[^\t\n\r ]/.test(this.data);
         }
         return false;
       });
-      text_nodes.forEach(function(e) {
+      text_nodes.forEach(e => {
         e.nodeValue = e.nodeValue
             .replace_if(has('item1'), /([\t\n\r ]+)([^\t\n\r ])/g, '__SPACE{__$1__}__$2')
             .replace_if(has('item2'), /\u3000+/g, '__FW_SPACE{__$&__}__')
@@ -118,7 +118,7 @@
             .replace_if(has('item7'), /[\uFF0C\uFFE5]+/g, '__FW_CHAR{__$&__}__'); // FULLWIDTH COMMA, FULLWIDTH YEN SIGN
       });
 
-      map.forEach(function(re, clsname) {
+      map.forEach((re, clsname) => {
         matchText(element, new RegExp(re, 'g'), function(node, match, offset) {
           const str = match.replace(re, '$1');
           const span = document.createElement('span');
