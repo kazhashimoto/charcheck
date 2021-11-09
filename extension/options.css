@@ -23,6 +23,12 @@ body {
   border: 1px solid #d0d0d0;
   padding: 6px 8px;
 }
+.cell:nth-child(1) {
+  width: 26em;
+}
+.cell:nth-child(2) {
+  width: 5em;
+}
 .head {
   background-color: #eee;
 }

@@ -114,7 +114,7 @@
             .replace_if(has('item4'), /[Ａ-Ｚａ-ｚ]+/g, '__ALPHA{__$&__}__')
             .replace_if(has('item5'), /[〈〉《》「」『』【】〔〕（）［］｛｝]+/g, '__BRACKETS{__$&__}__')
             .replace_if(has('item6'), /[、。！？・：；]+/g, '__PUNC{__$&__}__')
-            .replace_if(has('item7'), /[\uFF0C\uFFE5]+/g, '__FW_CHAR{__$&__}__'); // FULLWIDTH COMMA, FULLWIDTH YEN SIGN
+            .replace_if(has('item7'), /[\uFF0C\uFFE5\uFF0D]+/g, '__FW_CHAR{__$&__}__'); // FULLWIDTH COMMA, FULLWIDTH YEN SIGN, FULLWIDTH HYPHEN-MINUS
       });
 
       map.forEach((re, clsname) => {
