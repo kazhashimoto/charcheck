@@ -4,21 +4,28 @@ charcheckはChrome拡張機能として動作するjavascriptプログラムで�
 ## Installation
 charcheckをブラウザで使用するには３つの方法があります。
 
-### Chrome拡張機能としてインストールする(推奨)
+### A. Chrome拡張機能としてインストールする(推奨)
 適当なディレクトリにリポジトリをcloneします。
 ```
 $ git clone https://github.com/kazhashimoto/charcheck.git
 ```
 
-Chromeを起動して、以下の手順でcharcheckを拡張機能として読み込みます。※画面の詳細は[こちら](https://developer.chrome.com/docs/extensions/mv3/getstarted/)
-1. ```chrome://extensions/```にアクセスし、拡張機能の管理ページを開く。
+Chromeを起動して、以下の手順でcharcheckを拡張機能として読み込みます。
+1. ```chrome://extensions/```にアクセスし、拡張機能の管理ページを開く。（画面の詳細は[こちら](https://developer.chrome.com/docs/extensions/mv3/getstarted/)）
 1. 「デベロッパーモード」をONにする。
 1. 「パッケージ化されていない拡張機能を読み込む」をクリックする。
 1. ファイル読み込みのダイアログで、cloneしたリポジトリの```./charcheck/extension```ディレクトリを選択する。
 
-### ブラウザの開発者ツールから直接読み込む
-FirefoxなどChrome以外のブラウザで使用する場合、表示中のコンテンツに対して、開発者ツールのコンソールからcharcheck.jsを直接読み込ませて実行することができます。この方法は、Content Security Policyが設定されたページではscriptやstyleの埋め込みがブロックされるため適用できません。ローカルのテスト環境でのみ使用してください。
 
+## Appendix
+### Chrome拡張機能にしないで利用する方法
+FirefoxなどChrome以外のブラウザで使用する場合、```./extension/charcheck.js```をブラウザに直接読み込ませることも可能です。これには２つの方法があります。
+いずれの方法もハイライト表示の背景色のカラーパレットはプリセットのものに固定です。プリセットの背景色を変更するには```/extension/charcheck.css```のスタイルを編集する必要があります。
+
+#### A. ブラウザの開発者ツールから直接読み込む
+表示中のコンテンツに対して、開発者ツールのコンソールからscriptタグを挿入してcharcheck.jsをロードする方法です。ただし、Content Security Policyが設定されたページの場合、scriptやstyleの埋め込みがブロックされるため、この方法では動作しません。ローカルのテスト環境でのみ使用してください。
+
+例）
 ```
 (function(url) {
   const s=document.createElement('script');
@@ -27,8 +34,8 @@ FirefoxなどChrome以外のブラウザで使用する場合、表示中のコ�
 })("http://localhost/charcheck/extension/charcheck.js");
 ```
 
-### 外部スクリプトとしてHTMLファイルに埋め込む
-HTMLファイルに埋め込んで使用するには、CSSファイルとjsファイルを指定します。
+#### B. 外部リソースとしてHTMLファイルに記述する
+CSSファイルとjavascriptファイルのパスを指定します。
 ```
 <link rel="stylesheet" href="/path/to/extension/charcheck.css">
 <script src="/path/to/extension/charcheck.js"></script>
