@@ -37,7 +37,7 @@ Charcheckはタブごとに実行できます。
 - FULLWIDTH COMMA, FULLWIDTH YEN SIGN, FULLWIDTH HYPHEN-MINUS
 
 注）  
-Charcheckは文字をハイライト表示させるために、対象の文字の前後に```<span>```タグを挿入して独自のCSSルールを適用しています。これがページの既存のCSSルールとの間で相互に影響を及ぼすことがあります。結果、ハイライト表示が無効化されたり、レイアウトが崩れる可能性があります。
+- Charcheckは文字をハイライト表示させるために、対象の文字の前後に```<span>```タグを挿入して独自のCSSルールを適用しています。これがページの既存のCSSルールとの間で相互に影響を及ぼすことがあります。結果、ハイライト表示が無効化されたり、レイアウトが崩れる可能性があります。（[既知の問題](#Known Issues)参照
 
 ### Options
 検索対象の文字の種類やハイライト表示の背景色を詳細設定画面から変更できます。
@@ -51,6 +51,17 @@ Charcheckは文字をハイライト表示させるために、対象の文字�
 1. 最後に「保存」ボタンをクリックして変更を確定します。
 
 変更した設定は、現在表示中のタブには反映されません。設定を反映するには、ページを再読み込みしてから、Charcheckアイコンをクリックしてください。
+
+## Known Issues
+既知の問題があります。サンプルは```demo/issues.html```参照。
+#1
+#2
+#3
+
+- [Issue#1](https://github.com/kazhashimoto/charcheck/issues/1)
+- [Issue#2](https://github.com/kazhashimoto/charcheck/issues/2)
+- [Issue#3](https://github.com/kazhashimoto/charcheck/issues/3)
+- [Issue#4](https://github.com/kazhashimoto/charcheck/issues/4)
 
 ## Appendix
 ### Chrome拡張機能を使わずにスクリプトを呼び出す方法

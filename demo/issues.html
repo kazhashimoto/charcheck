@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Charcheck bugs</title>
+  <title>Charcheck Known Issues</title>
   <style>
   body { font-family: sans-serif; }
   .example + .example {
@@ -14,7 +14,7 @@
 </head>
 <body>
   <div class="example">
-    <p>Bug#1: flexbox内で子のspan要素がフレックスアイテムなる場合、ハイライト表示の幅が拡張してレイアウトが崩れる</p>
+    <p>#1: flexbox内で子のspan要素がフレックスアイテムなる場合、ハイライト表示の幅が拡張してレイアウトが崩れる</p>
     <style>
       .bug1 { display: flex; }
       .bug1 span { flex-grow: 1; }
@@ -23,7 +23,7 @@
   </div>
 
   <div class="example">
-    <p>Bug#2: CSSで背景色を設定したspan要素についてセレクターの詳細度が高い場合、ハイライト表示のスタイルが無視される</p>
+    <p>#2: CSSで背景色を設定したspan要素についてセレクターの詳細度が高い場合、ハイライト表示のスタイルが無視される</p>
     <style>
       .bug2 span { background-color: black; color: white; }
     </style>
@@ -31,7 +31,7 @@
   </div>
 
   <div class="example">
-    <p>Bug#3: span要素にnth-child, nth-of-typeなどで順序に依存したスタイルが設定されている場合、ハイライト表示の挿入によってオリジナルのデザインが損なわれる</p>
+    <p>#3: span要素にnth-child, nth-of-typeなどで順序に依存したスタイルが設定されている場合、ハイライト表示の挿入によってオリジナルのデザインが損なわれる</p>
     <style>
       .bug3 { background-color: lightyellow; }
       .bug3 span:nth-of-type(1) { background-color: none; }
