@@ -44,6 +44,7 @@ function preset_color_values() {
 
 function restore_options() {
   preset_color_values();
+  update_preview();
   chrome.storage.sync.get('options', function(result) {
     console.log(result);
     if ('options' in result) {
@@ -56,6 +57,8 @@ function restore_options() {
       });
       document.getElementById('same-color').checked = options.useSameColor;
       document.getElementById('color-default').value = options.defaultColor;
+
+      update_preview();
     }
   });
 }
@@ -97,6 +100,7 @@ function set_lightness(value) {
     console.log('new:', hex);
     e.value = hex;
   });
+  update_preview();
 }
 
 document.getElementById('lightness-down').addEventListener('click', function() {
@@ -106,4 +110,17 @@ document.getElementById('lightness-up').addEventListener('click', function() {
   set_lightness(1);
 });
 
-document.getElementById('reset-colors').addEventListener('click', preset_color_values);
+document.getElementById('reset-colors').addEventListener('click', function() {
+   preset_color_values();
+   update_preview();
+});
+
+function update_preview() {
+  document.querySelectorAll('.sample-text span').forEach(e => {
+    const x = classes.indexOf(e.classList[0]);
+    if (x >= 0) {
+      const picker = document.getElementById(`color${x + 1}`);
+      e.style.backgroundColor = picker.value;
+    }
+  });
+}
