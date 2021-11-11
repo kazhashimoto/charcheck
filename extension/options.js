@@ -137,8 +137,16 @@ function update_preview() {
   document.querySelectorAll('.sample-text span').forEach(e => {
     const x = classes.indexOf(e.classList[0]);
     if (x >= 0) {
-      const picker = document.getElementById(`color${x + 1}`);
-      e.style.backgroundColor = picker.value;
+      const item = document.getElementById(`item${x + 1}`);
+      let picker = document.getElementById(`color${x + 1}`);
+      if (document.getElementById('same-color').checked) {
+        picker = document.getElementById('color-default');
+      }
+      e.style.backgroundColor = item.checked? picker.value: 'transparent';
     }
   });
 }
+
+document.querySelectorAll('.item, .color, #same-color, #color-default').forEach(e => {
+  e.addEventListener('change', update_preview);
+});
