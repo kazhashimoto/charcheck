@@ -22,7 +22,6 @@
   if (from_extension) {
     chrome.storage.sync.get('options', function(result) {
       if ('options' in result) {
-        console.log('get', result.options);
         options = Object.assign({}, result.options);
         options.preset = false;
         has = x => options.items[x];
@@ -53,7 +52,6 @@
     if (from_extension && options.preset) {
       return;
     }
-    console.log('modify css rules');
     const colors = options.colors;
     options._c = function(p) {
       return (this.useSameColor)? this.defaultColor: this.colors[p];
