@@ -158,5 +158,5 @@
           child = child.nextSibling;
       }
       return node;
-  };
+  }
 })();

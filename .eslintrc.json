@@ -1,0 +1,21 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaVersion": 13
+    },
+    "rules": {
+      "no-redeclare": "off",
+      "no-unused-vars": "off"
+    },
+    "globals": {
+      "chrome": "readonly",
+      "name2hex": "readonly",
+      "getRGB": "readonly",
+      "rgb2hsl": "readonly",
+      "hsl2rgb": "readonly"
+    }
+}

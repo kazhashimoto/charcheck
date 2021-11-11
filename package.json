@@ -1,0 +1,23 @@
+{
+  "name": "charcheck",
+  "version": "1.0.0",
+  "description": "charcheckはChrome拡張機能として動作するjavascriptプログラムであり、ブラウザで表示中のページに対して、コンテンツ中のテキストに含まれる全角英字・全角数字や、半角・全角スペースが挿入された箇所などを色分けしてハイライト表示する機能を提供します。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kazhashimoto/charcheck.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kazhashimoto/charcheck/issues"
+  },
+  "homepage": "https://github.com/kazhashimoto/charcheck#readme",
+  "devDependencies": {
+    "eslint": "^8.2.0"
+  }
+}

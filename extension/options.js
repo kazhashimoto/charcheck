@@ -92,7 +92,7 @@ function set_lightness(value) {
       l = Math.max(l - 10, 10);
     }
     hsl[2] = l;
-    e.value = hsl2rgb(hsl);;
+    e.value = hsl2rgb(hsl);
   });
   update_preview();
 }
