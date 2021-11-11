@@ -115,7 +115,25 @@ document.getElementById('reset-colors').addEventListener('click', function() {
    update_preview();
 });
 
+function embed_tags(target) {
+  let text = target.textContent;
+  text = text.replace(/ /g, '<span class="__space">$&</span>')
+          .replace(/\u3000+/g, '<span class="__fw-space">$&</span>')
+          .replace(/[０-９]+/g, '<span class="__digit">$&</span>')
+          .replace(/[Ａ-Ｚａ-ｚ]+/g, '<span class="__alpha">$&</span>')
+          .replace(/[「」]/g, '<span class="__brackets">$&</span>')
+          .replace(/[、。！？・：；]+/g, '<span class="__punc">$&</span>')
+          .replace(/[\uFF0C\uFFE5\uFF0D]+/g, '<span class="__fw-char">$&</span>');
+
+  target.innerHTML = text;
+}
+
 function update_preview() {
+  const target = document.querySelector('.sample-text');
+  if (!target.classList.contains('done')) {
+    embed_tags(target);
+    target.classList.add('done');
+  }
   document.querySelectorAll('.sample-text span').forEach(e => {
     const x = classes.indexOf(e.classList[0]);
     if (x >= 0) {
