@@ -75,7 +75,7 @@ document.getElementById('select-all').addEventListener('click', select_all);
 
 // colors
 function set_lightness(value) {
-  document.querySelectorAll('.color').forEach(e => {
+  document.querySelectorAll('.color, #color-default').forEach(e => {
     const rgb = getRGB(e.value);
     const hsl = [];
     rgb2hsl(rgb, hsl);
