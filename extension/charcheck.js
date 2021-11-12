@@ -127,6 +127,7 @@
     });
   }
 
+  // Adapted from:
   // https://stackoverflow.com/questions/16662393/insert-html-into-text-node-with-javascript
   function matchText(node, regex, callback, excludeElements) {
       excludeElements || (excludeElements = ['script', 'style', 'iframe', 'canvas']);

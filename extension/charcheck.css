@@ -1,5 +1,4 @@
 @charset "UTF-8";
-/* CSS Document */
 
 .__space { background-color: tomato; }
 .__fw-space { background-color: #fff100; }
@@ -8,7 +7,6 @@
 .__brackets { background-color: mediumseagreen;}
 .__punc { background-color: slateblue; }
 .__fw-char { background-color: orange;}
-
 
 body:not(.charcheck-done) .__c {
   background-color: transparent;
