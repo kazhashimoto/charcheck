@@ -144,6 +144,6 @@ function update_preview() {
   });
 }
 
-document.querySelectorAll('.item, .color, #same-color, #color-default').forEach(e => {
+document.querySelectorAll('.item, .color, #select-all, #same-color, #color-default').forEach(e => {
   e.addEventListener('change', update_preview);
 });
