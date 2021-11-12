@@ -1,10 +1,10 @@
 # charcheck
 charcheckは、ブラウザで表示中のページのテキストに含まれる全角英字・全角数字や、半角・全角スペースが挿入された箇所などを色分けしてハイライト表示するChrome拡張機能です。charcheckの目的は、Webページのコーディング作業において、コンテンツの文章をブラウザ画面上でチェックする際に、全角・半角英数字の混在や表記ブレ、約物の前後に挿入された余分な半角スペースなど、目視では見分けにくい誤りの箇所を画面上で確認しやすくすることです。
 
-![sample highlighting text](https://user-images.githubusercontent.com/50348276/141263466-b2cdac12-9363-4bfe-93bf-a5628c64f262.png)
+![sample highlighting text](https://user-images.githubusercontent.com/50348276/141407149-595a82c9-7e22-44a0-bbed-8676977cbe82.png)
 
 ## Installation
-適当なディレクトリにリポジトリをcloneします。
+適当なディレクトリにリポジトリをcloneします。もしくはzipファイルをダウンロードして解凍します。
 ```
 $ git clone https://github.com/kazhashimoto/charcheck.git
 ```
@@ -13,7 +13,7 @@ Chromeを起動して、以下の手順でcharcheckを拡張機能として読�
 1. ```chrome://extensions/```にアクセスし、拡張機能の管理ページを開きます。（画面の詳細は[こちら](https://developer.chrome.com/docs/extensions/mv3/getstarted/)）
 1. 「デベロッパーモード」をONにします。
 1. 「パッケージ化されていない拡張機能を読み込む」をクリックします。
-1. ファイル読み込みのダイアログで、cloneしたリポジトリの```./charcheck/extension```ディレクトリを選択します。
+1. ファイル読み込みのダイアログで、ローカルに展開したリポジトリの```./charcheck/extension```ディレクトリを選択します。
 
 Chrome拡張機能を使わずに直接スクリプトを呼び出す方法については[Appendix](#Appendix)を参照してください。
 
