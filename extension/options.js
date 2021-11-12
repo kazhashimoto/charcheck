@@ -126,12 +126,12 @@ function embed_tags(target) {
 }
 
 function update_preview() {
-  const target = document.querySelector('.sample-text');
-  if (!target.classList.contains('done')) {
-    embed_tags(target);
-    target.classList.add('done');
+  const p = document.querySelector('.sample-text');
+  if (!p.classList.contains('done')) {
+    embed_tags(p);
+    p.classList.add('done');
   }
-  document.querySelectorAll('.sample-text span').forEach(e => {
+  p.querySelectorAll('span').forEach(e => {
     const x = classes.indexOf(e.classList[0]);
     if (x >= 0) {
       const item = document.getElementById(`item${x + 1}`);
