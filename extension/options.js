@@ -111,13 +111,16 @@ document.getElementById('reset-colors').addEventListener('click', function() {
 
 function embed_tags(target) {
   let text = target.innerHTML;
-  text = text.replace(/ /g, '<span class="__space">$&</span>')
-          .replace(/\u3000+/g, '<span class="__fw-space">$&</span>')
-          .replace(/[０-９]+/g, '<span class="__digit">$&</span>')
-          .replace(/[Ａ-Ｚａ-ｚ]+/g, '<span class="__alpha">$&</span>')
-          .replace(/[「」]/g, '<span class="__brackets">$&</span>')
-          .replace(/[、。！？・：；]+/g, '<span class="__punc">$&</span>')
-          .replace(/[\uFF0C\uFFE5\uFF0D]+/g, '<span class="__fw-char">$&</span>');
+  const enclose = function(match) {
+    return `<span class="${this}">${match}</span>`;
+  };
+  text = text.replace(/ /g, enclose.bind('__space'))
+          .replace(/\u3000+/g, enclose.bind('__fw-space'))
+          .replace(/[０-９]+/g, enclose.bind('__digit'))
+          .replace(/[Ａ-Ｚａ-ｚ]+/g, enclose.bind('__alpha'))
+          .replace(/[「」]/g, enclose.bind('__brackets'))
+          .replace(/[、。！？・：；]+/g, enclose.bind('__punc'))
+          .replace(/[\uFF0C\uFFE5\uFF0D]+/g, enclose.bind('__fw-char'));
 
   target.innerHTML = text;
 }
