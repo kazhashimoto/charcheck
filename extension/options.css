@@ -24,9 +24,15 @@ body {
   padding: 6px 8px;
 }
 .cell:nth-child(1) {
-  width: 26em;
+  width: 1em;
+  border-right: none;
+  padding-right: 0;
 }
 .cell:nth-child(2) {
+  width: 26em;
+  border-left: none;
+}
+.cell:nth-child(3) {
   width: 5em;
 }
 .head {
