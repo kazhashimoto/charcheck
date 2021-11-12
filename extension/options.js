@@ -110,7 +110,7 @@ document.getElementById('reset-colors').addEventListener('click', function() {
 });
 
 function embed_tags(target) {
-  let text = target.textContent;
+  let text = target.innerHTML;
   text = text.replace(/ /g, '<span class="__space">$&</span>')
           .replace(/\u3000+/g, '<span class="__fw-space">$&</span>')
           .replace(/[０-９]+/g, '<span class="__digit">$&</span>')
