@@ -48,10 +48,10 @@ function restore_options() {
     if ('options' in result) {
       const options = result.options;
       document.querySelectorAll('.item').forEach(e => {
-        document.getElementById(e.id).checked = options.items[e.id];
+        e.checked = options.items[e.id];
       });
       document.querySelectorAll('.color').forEach(e => {
-        document.getElementById(e.id).value = options.colors[e.id];
+        e.value = options.colors[e.id];
       });
       document.getElementById('same-color').checked = options.useSameColor;
       document.getElementById('color-default').value = options.defaultColor;
